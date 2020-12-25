@@ -25,3 +25,30 @@ This is my current configuration:
         }
 
 ```
+
+# Apache
+
+This is a working configuration for Apache
+
+```
+
+<IfModule mod_ssl.c>
+<VirtualHost *:443>
+    ServerName domain.com
+    AllowEncodedSlashes On
+    ProxyPreserveHost On
+    ProxyPass "/"  "http://localhost:3000/"
+    
+    
+SSLCertificateFile /etc/letsencrypt/live/domain.com/fullchain.pem
+SSLCertificateKeyFile /etc/letsencrypt/live/domain.com/privkey.pem
+Include /etc/letsencrypt/options-ssl-apache.conf
+
+<Location "/position">
+      ProxyPass "ws://localhost:3000/position"
+  </Location>
+
+</VirtualHost>
+</IfModule>
+
+```
